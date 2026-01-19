@@ -46,7 +46,7 @@
     .profile-pic img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* fills circle */
+      object-fit: cover;
     }
 
     /* TABS */
@@ -102,11 +102,27 @@
     .role { opacity: 0.7; font-size: 0.9rem; }
     .date { opacity: 0.5; font-size: 0.8rem; margin-top: 5px; }
 
-    /* PROJECTS GRID */
-    .projects { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-    .project { background: #0f0f0f; border-radius: 12px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); transition: transform 0.2s ease; }
+    /* PROJECTS GRID FIXED 2x3 */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* exactly 2 columns */
+      gap: 24px;
+    }
+    .project {
+      background: #0f0f0f;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      transition: transform 0.2s ease;
+    }
     .project:hover { transform: translateY(-4px); }
-    .project img { width: 100%; height: auto; border-radius: 8px; object-fit: cover; margin-bottom: 12px; }
+    .project img {
+      width: 100%;
+      height: 200px; /* uniform image height */
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
     .project-caption { font-weight: 500; margin-bottom: 6px; }
     .project-desc { opacity: 0.7; font-size: 0.9rem; }
 
@@ -147,7 +163,7 @@
     </div>
   </section>
 
-  <!-- EXPERIENCE PANEL (NO LOGOS) -->
+  <!-- EXPERIENCE PANEL -->
   <section id="experience" class="panel">
     <h2>Experience</h2>
     <div class="timeline">
@@ -196,7 +212,26 @@
         <div class="project-caption">FPV Drone Control System</div>
         <div class="project-desc">Motor control, PID tuning, and power electronics for high-performance drones.</div>
       </div>
-      <!-- Add more projects similarly -->
+      <div class="project">
+        <img src="images/project3.png" alt="Project 3 image">
+        <div class="project-caption">Project 3</div>
+        <div class="project-desc">Description for project 3.</div>
+      </div>
+      <div class="project">
+        <img src="images/project4.png" alt="Project 4 image">
+        <div class="project-caption">Project 4</div>
+        <div class="project-desc">Description for project 4.</div>
+      </div>
+      <div class="project">
+        <img src="images/project5.png" alt="Project 5 image">
+        <div class="project-caption">Project 5</div>
+        <div class="project-desc">Description for project 5.</div>
+      </div>
+      <div class="project">
+        <img src="images/project6.png" alt="Project 6 image">
+        <div class="project-caption">Project 6</div>
+        <div class="project-desc">Description for project 6.</div>
+      </div>
     </div>
   </section>
 
