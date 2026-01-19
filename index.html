@@ -10,11 +10,10 @@
 
   <style>
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       font-family: 'JetBrains Mono', monospace;
-      background: #2e2e2e;
+      background: black;
       color: white;
       overflow-x: hidden;
     }
@@ -29,89 +28,66 @@
       text-align: center;
       position: relative;
     }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 300; letter-spacing: 0.05em; }
+    .cursor::after { content: "|"; animation: blink 1s infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .subtitle { opacity: 0.7; margin-top: 10px; }
 
-    .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 300;
-      letter-spacing: 0.05em;
+    /* TABS */
+    .tabs {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      display: flex;
+      gap: 20px;
+      z-index: 100;
     }
-
-    .cursor::after {
-      content: "|";
-      animation: blink 1s infinite;
-    }
-
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-
-    .subtitle {
-      opacity: 0.7;
-      margin-top: 10px;
-    }
-
-    .scroll {
-      position: absolute;
-      bottom: 30px;
+    .tab {
+      background: none;
+      border: none;
+      color: white;
+      font-family: inherit;
+      font-size: 0.85rem;
       opacity: 0.5;
-      font-size: 0.8rem;
+      cursor: pointer;
+      padding: 0;
     }
+    .tab.active { opacity: 1; }
+    .tab:hover { opacity: 0.9; }
 
-    /* EXPERIENCE */
-    section {
-      padding: 80px 20px;
-      max-width: 900px;
-      margin: auto;
-    }
+    /* SECTIONS */
+    section { padding: 80px 20px; max-width: 900px; margin: auto; scroll-margin-top: 120px; }
+    h2 { text-align: center; margin-bottom: 40px; font-weight: 500; }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 40px;
-      font-weight: 500;
-    }
+    /* PANEL VISIBILITY */
+    .panel { display: none; opacity: 0; transition: opacity 0.3s ease; }
+    .panel.active { display: block; opacity: 1; }
 
-    .timeline {
-      border-left: 2px solid #333;
-      padding-left: 30px;
-    }
+    /* EXPERIENCE TIMELINE */
+    .timeline { border-left: 2px solid #333; padding-left: 30px; }
+    .item { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 40px; position: relative; }
+    .item::before { content: ""; width: 12px; height: 12px; background: white; border-radius: 50%; position: absolute; left: -45px; top: 6px; }
 
-    .item {
-      margin-bottom: 40px;
-      position: relative;
-    }
+    .card { background: #0f0f0f; padding: 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+    .company { font-weight: 500; }
+    .role { opacity: 0.7; font-size: 0.9rem; }
+    .date { opacity: 0.5; font-size: 0.8rem; margin-top: 5px; }
 
-    .item::before {
-      content: "";
-      width: 12px;
-      height: 12px;
-      background: white;
-      border-radius: 50%;
-      position: absolute;
-      left: -37px;
-      top: 6px;
-    }
+    .logo { width: 56px; height: 56px; flex-shrink: 0; margin-top: 4px; }
+    .logo img { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; background: #111; opacity: 0.9; }
 
-    .card {
-      background: #0f0f0f;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    }
+    /* PROJECTS */
+    .projects { display: grid; gap: 24px; }
+    .project { background: #0f0f0f; padding: 20px; border-radius: 12px; transition: transform 0.2s ease; }
+    .project:hover { transform: translateY(-4px); }
+    .project-title { font-weight: 500; margin-bottom: 6px; }
+    .project-desc { opacity: 0.7; font-size: 0.9rem; }
+    .project-tags { margin-top: 10px; font-size: 0.75rem; opacity: 0.5; }
 
-    .company {
-      font-weight: 500;
-    }
-
-    .role {
-      opacity: 0.7;
-      font-size: 0.9rem;
-    }
-
-    .date {
-      opacity: 0.5;
-      font-size: 0.8rem;
-      margin-top: 5px;
-    }
+    /* CONTACT */
+    .contact { text-align: center; }
+    .email { display: inline-block; margin-top: 20px; color: white; text-decoration: none; border-bottom: 1px solid #333; padding-bottom: 4px; opacity: 0.8; }
+    .email:hover { opacity: 1; }
   </style>
 </head>
 <body>
@@ -119,50 +95,94 @@
   <!-- HERO -->
   <div class="hero">
     <h1 class="cursor">Sheel Shah</h1>
-    <div class="subtitle">About me: Hi! I'm an engineer and IoT researcher focusing on electronics, hardware/PCB design, and applied AI I study Electrical and Biomedical Engineering at USC. </div>
-    <div class="scroll">↓ see more</div>
+    <div class="subtitle">Engineer · Builder · Research</div>
   </div>
 
-  <!-- EXPERIENCE -->
-  <section>
+  <!-- TABS -->
+  <nav class="tabs">
+    <button class="tab active" data-target="experience">Experience</button>
+    <button class="tab" data-target="projects">Projects</button>
+    <button class="tab" data-target="contact">Contact</button>
+  </nav>
+
+  <!-- EXPERIENCE PANEL -->
+  <section id="experience" class="panel active">
     <h2>Experience</h2>
-
     <div class="timeline">
-
       <div class="item">
+        <div class="logo"><img src="images/microsoft.png" alt="Microsoft logo"></div>
         <div class="card">
-          <div class="company">________</div>
-          <div class="role">__________</div>
-          <div class="date">_________</div>
+          <div class="company">Microsoft</div>
+          <div class="role">Software Engineer Intern</div>
+          <div class="date">Summer 2025</div>
         </div>
       </div>
-
       <div class="item">
+        <div class="logo"><img src="images/lavalab.png" alt="Lavalab logo"></div>
         <div class="card">
-          <div class="company">________</div>
-          <div class="role">__________</div>
+          <div class="company">Lavalab</div>
+          <div class="role">Director of Development</div>
           <div class="date">2025 – Present</div>
         </div>
       </div>
-
       <div class="item">
+        <div class="logo"><img src="images/foreflight.png" alt="Foreflight logo"></div>
         <div class="card">
-          <div class="company">_________</div>
-          <div class="role">_______________</div>
+          <div class="company">Foreflight</div>
+          <div class="role">Software Engineer Intern</div>
           <div class="date">Summer 2024</div>
         </div>
       </div>
-
       <div class="item">
+        <div class="logo"><img src="images/nasa.png" alt="NASA logo"></div>
         <div class="card">
-          <div class="company">___________</div>
-          <div class="role">_______________</div>
-          <div class="date">___________-</div>
+          <div class="company">NASA</div>
+          <div class="role">Research Intern</div>
+          <div class="date">Summer 2022</div>
         </div>
       </div>
-
     </div>
   </section>
 
+  <!-- PROJECTS PANEL -->
+  <section id="projects" class="panel">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="project">
+        <div class="project-title">Bulzi Beacon</div>
+        <div class="project-desc">Low-power RF safety device for firefighters and healthcare workers.</div>
+        <div class="project-tags">RF · Embedded · Nordic · Power</div>
+      </div>
+      <div class="project">
+        <div class="project-title">FPV Drone Control System</div>
+        <div class="project-desc">Motor control, PID tuning, and power electronics for high-performance drones.</div>
+        <div class="project-tags">Power Electronics · Control · C++</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT PANEL -->
+  <section id="contact" class="panel">
+    <h2>Contact</h2>
+    <div class="contact">
+      <p>If you want to build something interesting or discuss research, feel free to reach out.</p>
+      <a class="email" href="mailto:sheel@example.com">sheel@example.com</a>
+    </div>
+  </section>
+
+  <script>
+    const tabs = document.querySelectorAll(".tab");
+    const panels = document.querySelectorAll(".panel");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        panels.forEach(p => p.classList.remove("active"));
+
+        tab.classList.add("active");
+        document.getElementById(tab.dataset.target).classList.add("active");
+      });
+    });
+  </script>
 </body>
 </html>
