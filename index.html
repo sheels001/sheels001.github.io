@@ -1,301 +1,890 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sheel Shah</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sheel Shah</title>
+<meta name="description" content="Sheel Shah — Electrical and Biomedical Engineering student at USC working in robotics, electronics, and medical devices.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1B2A4A;
+  --navy-deep: #0F1B33;
+  --teal: #00B4D8;
+  --teal-dark: #0096B7;
+  --teal-glow: rgba(0, 180, 216, 0.15);
+  --white: #F8FAFB;
+  --off-white: #E8EDEF;
+  --gray: #8899AA;
+  --card-bg: rgba(255,255,255,0.04);
+  --card-border: rgba(255,255,255,0.08);
+}
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet">
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-  <style>
-    * { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
 
-    body {
-      margin: 0;
-      font-family: 'JetBrains Mono', monospace;
-      background: #2c2c2c;
-      color: white;
-      overflow-x: hidden;
-    }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--navy-deep);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
 
-    .headshot {
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin: 0 auto 30px;
-      display: block;
-      border: 3px solid #444;
-    }
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 
-    /* HERO */
-    .hero {
-      height: auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 40px 20px 20px 20px;
-      position: relative;
-    }
-    .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 300; letter-spacing: 0.05em; margin-bottom: 10px;}
-    .cursor::after { content: "|"; animation: blink 1s infinite; }
-    @keyframes blink { 50% { opacity: 0; } }
+/* ========================
+   NAV
+   ======================== */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.25rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(15, 27, 51, 0.7);
+  border-bottom: 1px solid var(--card-border);
+  transition: all 0.3s ease;
+}
 
-    /* TABS */
-    .tabs {
-      position: fixed;
-      top: 20px;
-      right: 30px;
-      display: flex;
-      gap: 20px;
-      z-index: 100;
-    }
-    .tab {
-      background: none;
-      border: none;
-      color: white;
-      font-family: inherit;
-      font-size: 0.85rem;
-      opacity: 0.5;
-      cursor: pointer;
-      padding: 0;
-    }
-    .tab.active { opacity: 1; }
-    .tab:hover { opacity: 0.9; }
+nav .logo {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  color: var(--teal);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
 
-    /* SECTIONS */
-    section { padding: 40px 20px 80px 20px; max-width: 900px; margin: auto; scroll-margin-top: 120px; }
-    h2 { text-align: center; margin-bottom: 40px; font-weight: 500; }
+nav .links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
 
-    /* PANEL VISIBILITY */
-    .panel { display: none; opacity: 0; transition: opacity 0.3s ease; }
-    .panel.active { display: block; opacity: 1; }
+nav .links a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
 
-    /* ABOUT ME */
-    .about-text { max-width: 700px; margin: 0 auto; line-height: 1.6; opacity: 0.85; }
-    .contact-links { text-align: center; margin-top: 20px; }
-    .contact-links a {
-      color: white;
-      text-decoration: none;
-      border-bottom: 1px solid #333;
-      padding-bottom: 2px;
-      margin: 0 12px;
-      opacity: 0.8;
-      transition: opacity 0.2s;
-    }
-    .contact-links a:hover { opacity: 1; }
+nav .links a:hover { color: var(--teal); }
 
-    /* EXPERIENCE TIMELINE WITH LOGOS */
-    .timeline { padding-left: 0; }
-    .item {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      margin-bottom: 40px;
-      position: relative;
-    }
-    .item .logo {
-      width: 56px;
-      height: 56px;
-      flex-shrink: 0;
-      border-radius: 8px;
-      overflow: hidden;
-      background: #111;
-    }
-    .item .logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .item .card {
-      flex: 1;
-      background: #0f0f0f;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    }
-    .company { font-weight: 500; }
-    .role { opacity: 0.7; font-size: 0.9rem; }
-    .date { opacity: 0.5; font-size: 0.8rem; margin-top: 5px; }
+/* ========================
+   HERO
+   ======================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 3rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
 
-    /* PROJECTS GRID FIXED 2x3 */
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr); /* exactly 2 columns */
-      gap: 24px;
-    }
-    .project {
-      background: #0f0f0f;
-      border-radius: 12px;
-      padding: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      transition: transform 0.2s ease;
-    }
-    .project:hover { transform: translateY(-4px); }
-    .project img {
-      width: 100%;
-      height: 200px; /* uniform image height */
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 12px;
-    }
-    .project-caption { font-weight: 500; margin-bottom: 6px; }
-    .project-desc { opacity: 0.7; font-size: 0.9rem; }
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -15%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, var(--teal-glow) 0%, transparent 70%);
+  pointer-events: none;
+  animation: pulse-glow 6s ease-in-out infinite;
+}
 
-    /* RESPONSIVE */
-    @media (max-width: 700px) {
-      .projects { grid-template-columns: 1fr; }
-      .item { flex-direction: column; align-items: flex-start; }
-    }
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.1); }
+}
 
-  </style>
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--teal);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fade-up 0.8s ease forwards 0.2s;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.75rem;
+  opacity: 0;
+  animation: fade-up 0.8s ease forwards 0.4s;
+}
+
+.hero h1 .first-name { color: var(--white); }
+.hero h1 .last-name { color: var(--teal); }
+
+.hero-tagline {
+  font-size: 1.2rem;
+  color: var(--gray);
+  max-width: 620px;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fade-up 0.8s ease forwards 0.6s;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1.25rem;
+  opacity: 0;
+  animation: fade-up 0.8s ease forwards 0.8s;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  background: var(--teal);
+  color: var(--navy-deep);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.02em;
+}
+
+.btn-primary:hover {
+  background: var(--teal-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 180, 216, 0.3);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  background: transparent;
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-radius: 6px;
+  border: 1px solid var(--card-border);
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================
+   SECTION BASE
+   ======================== */
+section {
+  padding: 6rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--teal);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.section-divider {
+  width: 60px;
+  height: 3px;
+  background: var(--teal);
+  margin-bottom: 3rem;
+  border-radius: 2px;
+}
+
+/* ========================
+   ABOUT
+   ======================== */
+#about { border-top: 1px solid var(--card-border); }
+
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.headshot-wrap {
+  margin-bottom: 2rem;
+}
+
+.headshot {
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(0,180,216,0.35);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+}
+
+.about-text p {
+  color: var(--off-white);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.about-text p:last-child { margin-bottom: 0; }
+
+.about-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.detail-item {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.detail-item:hover { border-color: rgba(0,180,216,0.25); }
+
+.detail-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--teal);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.detail-value {
+  font-size: 0.95rem;
+  color: var(--white);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* ========================
+   EXPERIENCE
+   ======================== */
+#experience { border-top: 1px solid var(--card-border); }
+
+.exp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.exp-item {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1.75rem 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.exp-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--teal);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.exp-item:hover::before { opacity: 1; }
+
+.exp-item:hover {
+  border-color: rgba(0,180,216,0.2);
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-3px);
+}
+
+.exp-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exp-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.exp-body {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.5rem;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.exp-main { flex: 1 1 320px; }
+
+.exp-org {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin-bottom: 0.3rem;
+}
+
+.exp-org .exp-org-note {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--gray);
+  letter-spacing: 0;
+}
+
+.exp-role {
+  font-size: 0.95rem;
+  color: var(--off-white);
+  font-weight: 500;
+}
+
+.exp-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--gray);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ========================
+   PROJECTS
+   ======================== */
+#projects { border-top: 1px solid var(--card-border); }
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.75rem;
+}
+
+.project-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  border-color: rgba(0,180,216,0.3);
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 44px rgba(0,0,0,0.3);
+}
+
+.project-media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--navy);
+}
+
+.project-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-media img { transform: scale(1.04); }
+
+.project-body {
+  padding: 1.75rem 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.project-status {
+  align-self: flex-start;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: 100px;
+  background: var(--teal-glow);
+  border: 1px solid rgba(0,180,216,0.3);
+  color: var(--teal);
+}
+
+.project-status.built {
+  background: rgba(46,204,113,0.1);
+  border-color: rgba(46,204,113,0.3);
+  color: #2ECC71;
+}
+
+.project-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.project-card p {
+  font-size: 0.95rem;
+  color: var(--gray);
+  line-height: 1.65;
+}
+
+/* ========================
+   CONTACT
+   ======================== */
+#contact {
+  border-top: 1px solid var(--card-border);
+  text-align: center;
+  padding-bottom: 4rem;
+}
+
+#contact .section-title { margin-bottom: 1rem; }
+#contact .section-divider { margin: 0 auto 2rem; }
+
+.contact-subtitle {
+  color: var(--gray);
+  font-size: 1.05rem;
+  margin-bottom: 2.5rem;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 2rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.contact-link:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0,180,216,0.15);
+}
+
+.contact-link svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* ========================
+   FOOTER
+   ======================== */
+footer {
+  text-align: center;
+  padding: 2rem 3rem;
+  border-top: 1px solid var(--card-border);
+  font-size: 0.8rem;
+  color: var(--gray);
+}
+
+footer span { color: var(--teal); }
+
+/* ========================
+   RESPONSIVE
+   ======================== */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.25rem; }
+  nav .links { gap: 1.25rem; }
+  nav .links a { font-size: 0.72rem; letter-spacing: 0.05em; }
+
+  .hero { padding: 7rem 1.5rem 3rem; }
+  section { padding: 4rem 1.5rem; }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .exp-item {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .exp-logo { width: 48px; height: 48px; }
+  .exp-org { font-size: 1.15rem; }
+
+  .exp-body {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .hero-cta { flex-direction: column; align-items: flex-start; }
+  .hero-cta a { width: 100%; justify-content: center; }
+
+  .contact-links { flex-direction: column; align-items: stretch; }
+  .contact-link { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .project-grid { grid-template-columns: 1fr; }
+  .headshot { width: 150px; height: 150px; }
+}
+
+/* Scroll-triggered animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal, .hero-eyebrow, .hero h1, .hero-tagline, .hero-cta {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+</style>
 </head>
 <body>
 
-  <!-- HERO -->
-  <div class="hero">
-    <h1 class="cursor">Sheel Shah</h1>
+<!-- NAV -->
+<nav>
+  <a href="#top" class="logo">SS.</a>
+  <ul class="links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <p class="hero-eyebrow">Electrical &amp; Biomedical Engineering / USC</p>
+  <h1><span class="first-name">Sheel</span><br><span class="last-name">Shah.</span></h1>
+  <p class="hero-tagline">Designing solutions that bridge technology and real-world impact — robotics, electronics, and medical devices, built hands-on from PCB to prototype.</p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary">View the work &#8595;</a>
+    <a href="#contact" class="btn-secondary">Get in touch</a>
   </div>
+</section>
 
-  <!-- TABS -->
-  <nav class="tabs">
-    <button class="tab active" data-target="about">About Me</button>
-    <button class="tab" data-target="experience">Experience</button>
-    <button class="tab" data-target="projects">Projects</button>
-  </nav>
+<!-- ABOUT -->
+<section id="about">
+  <span class="section-label">01 &mdash; About</span>
+  <h2 class="section-title">About me.</h2>
+  <div class="section-divider"></div>
 
-  <!-- ABOUT PANEL -->
-  <section id="about" class="panel active">
-    <h2>About Me</h2>
-    <img src="headshot.png" alt="Sheel Shah" class="headshot">
-    <div class="about-text">
-      Hi there! I’m an Electrical and Biomedical Engineering student at USC focused on designing innovative 
-      solutions that bridge technology and real-world impact, especially in robotics, electronics, and medical 
-      devices. I work hands-on with PCB design, prototyping, and hardware integration. 
-      
-      Long-term, my goal is to create technologies that improve people’s lives and advance both healthcare 
-      and electronic innovation. 
-
-      Outside of work, I enjoy cooking, swimming, and playing the piano. 
-
+  <div class="about-content">
+    <div class="about-text reveal">
+      <div class="headshot-wrap">
+        <img src="headshot.png" alt="Portrait of Sheel Shah outdoors in the hills above Los Angeles" class="headshot">
+      </div>
+      <p>Hi there! I'm an Electrical and Biomedical Engineering student at USC focused on designing innovative solutions that bridge technology and real-world impact, especially in robotics, electronics, and medical devices. I work hands-on with PCB design, prototyping, and hardware integration.</p>
+      <p>Long-term, my goal is to create technologies that improve people's lives and advance both healthcare and electronic innovation.</p>
+      <p>Outside of work, I enjoy cooking, swimming, and playing the piano.</p>
     </div>
-    <div class="contact-links">
-      <a href="mailto:sheelsha@usc.edu">📧 Email</a>
-      <a href="https://www.linkedin.com/in/sheelshah05/" target="_blank">LinkedIn</a>
-    </div>
-  </section>
 
-  <!-- EXPERIENCE PANEL -->
-  <section id="experience" class="panel">
-    <h2>Experience</h2>
-    <div class="timeline">
-      <div class="item">
-        <div class="logo">
-          <img src="viterbi.png" alt="Viterbi logo">
-        </div>
-        <div class="card">
-          <div class="company">Khan Lab (wearables and electronics; USC Viterbi)</div>
-          <div class="role">Research Fellow </div>
-          <div class="date">2026 — Present </div>
-        </div>
+    <div class="about-details reveal">
+      <div class="detail-item">
+        <div class="detail-label">Education</div>
+        <div class="detail-value">University of Southern California &mdash; Electrical Engineering &amp; Biomedical Engineering</div>
       </div>
-      <div class="item">
-        <div class="logo">
-          <img src="mercor.png" alt="Mercor logo">
-        </div>
-        <div class="card">
-          <div class="company">Mercor </div>
-          <div class="role">Intelligence Analyst </div>
-          <div class="date">2025 – Present</div>
-        </div>
+      <div class="detail-item">
+        <div class="detail-label">Focus Areas</div>
+        <div class="detail-value">Robotics &middot; Electronics &middot; Medical Devices</div>
       </div>
-      <div class="item">
-        <div class="logo">
-          <img src="bulzi.png" alt="Bulzi logo">
-        </div>
-        <div class="card">
-          <div class="company">Bulzi </div>
-          <div class="role">Electrical Engineering Intern</div>
-          <div class="date">2025 — Present</div>
-        </div>
+      <div class="detail-item">
+        <div class="detail-label">Hands-On</div>
+        <div class="detail-value">PCB Design &middot; Prototyping &middot; Hardware Integration</div>
       </div>
-      <div class="item">
-        <div class="logo">
-          <img src="viterbi.png" alt="Viterbi logo">
-        </div>
-        <div class="card">
-          <div class="company">Image Processing & Informatics Lab (USC Viterbi) </div>
-          <div class="role">Research Assistant </div>
-          <div class="date">2024 — 2025 </div>
-        </div>
-      </div>
-      <div class="item">
-        <div class="logo">
-          <img src="angels.png" alt="Pasadena Angels logo">
-        </div>
-        <div class="card">
-          <div class="company">Pasadena Angels </div>
-          <div class="role">Investment and Due Diligence Analyst </div>
-          <div class="date">2024 — 2025 </div>
-        </div>
+      <div class="detail-item">
+        <div class="detail-label">Outside of Work</div>
+        <div class="detail-value">Cooking &middot; Swimming &middot; Piano</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PROJECTS PANEL -->
-  <section id="projects" class="panel">
-    <h2>Projects</h2>
-    <div class="projects">
-      <div class="project">
-        <img src="project1.png" alt="Project 1 image">
-        <div class="project-caption">Wireless Security Mesh for Clinical Facilities (in progress)</div>
-        <div class="project-desc">A secure network via LoRa to monitor and protect critical hospital infrastructure (in progress)</div>
-      </div>
-      <div class="project">
-        <img src="project2.png" alt="Project 2 image">
-        <div class="project-caption">Fire tracking FPV drone system (in progress)</div>
-        <div class="project-desc">An autonomous drone platform for real-time fire detection and tracking (in progress) </div>
-      </div>
-      <div class="project">
-        <img src="project3.png" alt="Project 3 image">
-        <div class="project-caption">WINNA (wearable sleeve for hoopers)</div>
-        <div class="project-desc">A sensor-equipped sleeve that tracks free-throw accuracy and motion.</div>
-      </div>
-      <div class="project">
-        <img src="project4.png" alt="Project 4 image">
-        <div class="project-caption">ReconCap (Smart Helmet for Soldiers)</div>
-        <div class="project-desc">A helmet with integrated sensors for situational awareness in the field.</div>
-      </div>
-      <div class="project">
-        <img src="project5.png" alt="Project 5 image">
-        <div class="project-caption">Custom Electric Guitar </div>
-        <div class="project-desc">A fully built guitar designed and wired for optimal performance.</div>
-      </div>
-      <div class="project">
-        <img src="project6.png" alt="Project 6 image">
-        <div class="project-caption">Smart Walker for the visually impaired</div>
-        <div class="project-desc">A mobility aid with sensors to help navigate safely and independently.</div>
+<!-- EXPERIENCE -->
+<section id="experience">
+  <span class="section-label">02 &mdash; Experience</span>
+  <h2 class="section-title">Where I've worked.</h2>
+  <div class="section-divider"></div>
+
+  <div class="exp-list">
+
+    <div class="exp-item reveal">
+      <div class="exp-logo"><img src="viterbi.png" alt="USC Viterbi School of Engineering logo"></div>
+      <div class="exp-body">
+        <div class="exp-main">
+          <div class="exp-org">Khan Lab <span class="exp-org-note">wearables and electronics &middot; USC Viterbi</span></div>
+          <div class="exp-role">Research Fellow</div>
+        </div>
+        <div class="exp-date">2026 &mdash; Present</div>
       </div>
     </div>
-  </section>
 
-  <script>
-    const tabs = document.querySelectorAll(".tab");
-    const panels = document.querySelectorAll(".panel");
+    <div class="exp-item reveal">
+      <div class="exp-logo"><img src="mercor.png" alt="Mercor logo"></div>
+      <div class="exp-body">
+        <div class="exp-main">
+          <div class="exp-org">Mercor</div>
+          <div class="exp-role">Intelligence Analyst</div>
+        </div>
+        <div class="exp-date">2025 &mdash; Present</div>
+      </div>
+    </div>
 
-    tabs.forEach(tab => {
-      tab.addEventListener("click", () => {
-        tabs.forEach(t => t.classList.remove("active"));
-        panels.forEach(p => p.classList.remove("active"));
+    <div class="exp-item reveal">
+      <div class="exp-logo"><img src="bulzi.png" alt="Bulzi logo"></div>
+      <div class="exp-body">
+        <div class="exp-main">
+          <div class="exp-org">Bulzi</div>
+          <div class="exp-role">Electrical Engineering Intern</div>
+        </div>
+        <div class="exp-date">2025 &mdash; Present</div>
+      </div>
+    </div>
 
-        tab.classList.add("active");
-        document.getElementById(tab.dataset.target).classList.add("active");
-      });
-    });
-  </script>
+    <div class="exp-item reveal">
+      <div class="exp-logo"><img src="viterbi.png" alt="USC Viterbi School of Engineering logo"></div>
+      <div class="exp-body">
+        <div class="exp-main">
+          <div class="exp-org">Image Processing &amp; Informatics Lab <span class="exp-org-note">USC Viterbi</span></div>
+          <div class="exp-role">Research Assistant</div>
+        </div>
+        <div class="exp-date">2024 &mdash; 2025</div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-logo"><img src="angels.png" alt="Pasadena Angels logo"></div>
+      <div class="exp-body">
+        <div class="exp-main">
+          <div class="exp-org">Pasadena Angels</div>
+          <div class="exp-role">Investment and Due Diligence Analyst</div>
+        </div>
+        <div class="exp-date">2024 &mdash; 2025</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <span class="section-label">03 &mdash; Projects</span>
+  <h2 class="section-title">What I've built.</h2>
+  <div class="section-divider"></div>
+
+  <div class="project-grid">
+
+    <article class="project-card reveal">
+      <div class="project-media">
+        <img src="project1.png" alt="LoRa gateway hardware and a bedside monitoring display in a clinical setting">
+      </div>
+      <div class="project-body">
+        <span class="project-status">In progress</span>
+        <h3>Wireless Security Mesh for Clinical Facilities</h3>
+        <p>A secure network via LoRa to monitor and protect critical hospital infrastructure.</p>
+      </div>
+    </article>
+
+    <article class="project-card reveal">
+      <div class="project-media">
+        <img src="project2.png" alt="Quadcopter drone with an exposed flight controller and sensor payload">
+      </div>
+      <div class="project-body">
+        <span class="project-status">In progress</span>
+        <h3>Fire Tracking FPV Drone System</h3>
+        <p>An autonomous drone platform for real-time fire detection and tracking.</p>
+      </div>
+    </article>
+
+    <article class="project-card reveal">
+      <div class="project-media">
+        <img src="project3.png" alt="Athlete wearing a sensor-equipped compression sleeve while holding a basketball">
+      </div>
+      <div class="project-body">
+        <span class="project-status built">Built</span>
+        <h3>WINNA &mdash; Wearable Sleeve for Hoopers</h3>
+        <p>A sensor-equipped sleeve that tracks free-throw accuracy and motion.</p>
+      </div>
+    </article>
+
+    <article class="project-card reveal">
+      <div class="project-media">
+        <img src="project4.png" alt="Tactical helmet fitted with mounted sensor and camera modules">
+      </div>
+      <div class="project-body">
+        <span class="project-status built">Built</span>
+        <h3>ReconCap &mdash; Smart Helmet for Soldiers</h3>
+        <p>A helmet with integrated sensors for situational awareness in the field.</p>
+      </div>
+    </article>
+
+    <article class="project-card reveal">
+      <div class="project-media">
+        <img src="project5.png" alt="Close-up of an electric guitar body showing the bridge, pickup, and control wiring">
+      </div>
+      <div class="project-body">
+        <span class="project-status built">Built</span>
+        <h3>Custom Electric Guitar</h3>
+        <p>A fully built guitar designed and wired for optimal performance.</p>
+      </div>
+    </article>
+
+    <article class="project-card reveal">
+      <div class="project-media">
+        <img src="project6.png" alt="Wheeled mobility walker with a seat and integrated sensor housings">
+      </div>
+      <div class="project-body">
+        <span class="project-status built">Built</span>
+        <h3>Smart Walker for the Visually Impaired</h3>
+        <p>A mobility aid with sensors to help navigate safely and independently.</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <span class="section-label">04 &mdash; Contact</span>
+  <h2 class="section-title">Let's connect.</h2>
+  <div class="section-divider"></div>
+  <p class="contact-subtitle">Interested in robotics, electronics, medical devices, or just want to talk shop &mdash; I'd love to hear from you.</p>
+
+  <div class="contact-links">
+    <a href="mailto:sheelsha@usc.edu" class="contact-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      Email &rarr;
+    </a>
+    <a href="https://www.linkedin.com/in/sheelshah05/" target="_blank" rel="noopener" class="contact-link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn &rarr;
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 <span>Sheel Shah</span> &middot; USC Viterbi</p>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+reveals.forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
